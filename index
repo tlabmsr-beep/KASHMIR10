@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KASHEMIR VIP Menu</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="theme-day" id="app-body">
+
+    <!-- زر الكونسيرج (طلب الإدارة) -->
+    <button class="concierge-btn glass-effect" onclick="callConcierge()">
+        <i class="fas fa-concierge-bell"></i> Консьерж
+    </button>
+
+    <!-- الشاشة الأولى: المنيو الرئيسي -->
+    <div id="menu-screen" class="screen active">
+        <div class="header">
+            <h1 class="logo-text">KASHEMIR</h1>
+            <p class="subtitle">Искусство гостеприимства</p>
+        </div>
+
+        <div class="menu-grid">
+            <!-- مشروبات الطاقة (Заряд Энергии) -->
+            <div class="menu-card glass-effect arched-frame" data-mood="energy">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=300&q=80');"></div>
+                <h3>Эспрессо</h3>
+                <p>Классический заряд энергии</p>
+                <button class="order-btn" onclick="placeOrder('Эспрессо', 'Заряд Энергии ⚡️')">Выбрать</button>
+            </div>
+
+            <div class="menu-card glass-effect arched-frame" data-mood="energy">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80');"></div>
+                <h3>Турецкий Кофе</h3>
+                <p>Богатый вкус и аромат</p>
+                <button class="order-btn" onclick="placeOrder('Турецкий Кофе', 'Заряд Энергии ⚡️')">Выбрать</button>
+            </div>
+
+            <!-- مشروبات الاسترخاء (Абсолютный Релакс) -->
+            <div class="menu-card glass-effect arched-frame" data-mood="relax">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1576092762791-dd9e222044d7?auto=format&fit=crop&w=300&q=80');"></div>
+                <h3>Ромашковый Чай</h3>
+                <p>Нежный и успокаивающий</p>
+                <button class="order-btn" onclick="placeOrder('Ромашковый Чай', 'Абсолютный Релакс 🌿')">Выбрать</button>
+            </div>
+
+            <!-- مشروبات الانتعاش (Освежающая Прохлада) -->
+            <div class="menu-card glass-effect arched-frame" data-mood="cool">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=300&q=80');"></div>
+                <h3>Классический Мохито</h3>
+                <p>Ледяная свежесть мяты</p>
+                <button class="order-btn" onclick="placeOrder('Мохито', 'Освежающая Прохлада 🧊')">Выбрать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط الحالة المزاجية العائم (Floating Mood Bar) -->
+    <div id="mood-bar" class="mood-bar glass-effect">
+        <button class="mood-btn" data-target="relax" onclick="toggleMood('relax')">🌿 Релакс</button>
+        <button class="mood-btn" data-target="energy" onclick="toggleMood('energy')">⚡️ Энергия</button>
+        <button class="mood-btn" data-target="cool" onclick="toggleMood('cool')">🧊 Прохлада</button>
+    </div>
+
+    <!-- الشاشة الثانية: شاشة الانتظار الأسطورية (30 ثانية) -->
+    <div id="wait-screen" class="screen cinematic-bg hidden">
+        <div class="wait-content glass-effect">
+            <h2 class="gold-text">Магия начинается...</h2>
+            <p id="compliment-text" class="compliment">Ваша улыбка освещает этот день ✨</p>
+            
+            <button class="more-compliment-btn" onclick="generateCompliment()">Хочу еще комплимент 🤍</button>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+            <p class="timer-text" id="timer-text">Осталось: 30 сек</p>
+            
+            <!-- يظهر بعد انتهاء الوقت -->
+            <div id="ready-section" class="hidden">
+                <h3 class="ready-text">Ваш напиток готов! 🥂</h3>
+                <button class="rating-btn gold-btn" onclick="showRating()">Оценить Гостеприимство</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- تأثير صوتي (ASMR) -->
+    <audio id="asmr-sound" src="https://actions.google.com/sounds/v1/water/glass_clinking.ogg"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
