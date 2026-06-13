@@ -389,7 +389,6 @@
         'Вода (без газа)': { sugar: false, syrup: false, type: 'cold' }
     };
 
-    // عبارات الإطراء الجديدة المخصصة لثقافة نيجني نوفغورود
     const compliments = [
         "Ваша красота сияет ярче, чем знаменитые нижегородские закаты 🌅",
         "Истинная нижегородская утонченность — это про вас 🤍",
@@ -399,7 +398,6 @@
         "В вас есть та самая стать и грация, которой славятся волжанки 👑"
     ];
 
-    // التوقعات والأمنيات الجديدة المخصصة لثقافة المدينة
     const fortunes = [
         "Идеальный день для красивого променада по Верхневолжской набережной 🤍",
         "Сегодня вечером вас ждет особенный момент. Столица закатов приготовила сюрприз 🌅",
@@ -427,19 +425,24 @@
         (hour >= 0 && hour < 12) ? 'Доброе утро,' : 
         (hour >= 12 && hour < 18) ? 'Добрый день,' : 'Добрый вечер,';
 
+    /* تم تعديل الدالة لعمل التمرير الانسيابي الذكي */
     function setMood(mood, btn) {
         document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
         const cards = document.querySelectorAll('.menu-card');
+        let firstVisibleCard = null; // متغير لحفظ أول بطاقة ظاهرة
+
         cards.forEach(card => {
             if (mood === 'all') {
                 card.classList.remove('dimmed');
                 card.classList.remove('spotlight');
+                if (!firstVisibleCard) firstVisibleCard = cards[0]; // في حالة "الكل" أول بطاقة هي الهدف
             } else {
                 if (card.dataset.mood === mood) {
                     card.classList.remove('dimmed');
                     card.classList.add('spotlight');
+                    if (!firstVisibleCard) firstVisibleCard = card; // حفظ أول بطاقة تنتمي للحالة
                     setTimeout(() => card.classList.remove('spotlight'), 1500);
                 } else {
                     card.classList.add('dimmed');
@@ -447,6 +450,16 @@
                 }
             }
         });
+
+        // حركة التمرير الانسيابي بعد تحديد أول بطاقة ظاهرة
+        if (firstVisibleCard) {
+            setTimeout(() => {
+                // حساب المكان بدقة مع ترك مسافة 120 بيكسل عشان الهيدر
+                const yOffset = -120; 
+                const y = firstVisibleCard.getBoundingClientRect().top + window.scrollY + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }, 100);
+        }
     }
 
     function checkUsualOrder() {
